@@ -1,0 +1,12 @@
+2016.12.14.
+更新：引入dl实现算法模块的动态加载。
+约定：IO模块由主程序内定；各模块皆为单道。
+
+2016.12.14.
+更新：引入tinyxml2，实现XML作业配置文件的加载。
+约定：XML作业文件只包括MOUDLE,PARAMETER！
+举例：
+    <MOUDLE name="suin" >
+        <PARAMETER name="channel">0</PARAMETER>
+        <PARAMETER name="filename">../../data/in.su</PARAMETER>
+    </MOUDLE>
