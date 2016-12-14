@@ -14,58 +14,28 @@
 using namespace tinyxml2;
 using namespace std;
 
-
- 
-
-
 typedef void(*pf_t)(SuHead *,float*,int,map<string,string>);
 
- 
-bool sfm_load(pf_t *f,const char *name){
+bool sfm_load(pf_t *pf,const char *name){
     void *handle=NULL;
     string lib_name="lib";
     lib_name.append(name);
     lib_name.append(".so");
-    //libaddnoise.so
-    cout<<"libname="<<lib_name<<endl;
+    //
+    msg_str("libname ",lib_name.c_str());
     handle = dlopen(lib_name.c_str(),RTLD_LAZY);
     if (!handle){
         cout<<"Dlopen Error:"<<dlerror()<<endl;
         return false;
     }
-    *f =(pf_t)dlsym(handle,name);//"addnoise");
+    *pf =(pf_t)dlsym(handle,name); 
     char *errInfo;
     errInfo=dlerror();
     if (errInfo!=NULL){
         cout<<"Dlsym Error:"<<errInfo<<endl;
         return false;
     }
-    return true;
-        
-}
-
-bool init(vector<SFM> *sfms){
-    
-    //job_set(&sfms);
-    
-    typedef void(*pf_job)( vector< SFM > *);
-    pf_job f_job ;
-    
-    void *handle=NULL;
-    handle = dlopen("libjob.so",RTLD_LAZY);
-    if (!handle){
-        cout<<"Dlopen Error:"<<dlerror()<<endl;
-        return false;
-    }
-    f_job =(pf_job)dlsym(handle, "job_set");
-    char *errInfo;
-    errInfo=dlerror();
-    if (errInfo!=NULL){
-        cout<<"Dlsym Error:"<<errInfo<<endl;
-        return false;
-    }
-    f_job( sfms);
-    return true;
+    return true; 
 }
 
 void init_by_xml(vector< SFM >*sfms, const char *xml_file_name){ 
@@ -106,19 +76,11 @@ int main(int argc, char **argv){
         return 0;
     } 
     
-    // job 
+    // init 
     vector< SFM > sfms;
-     
     init_by_xml(&sfms, argv[1]);
-    //return 0; 
      
-    /*
-    msg("=============================================");
-    msg("========================= information of job ");
-    msg("=============================================");
-    job_view(sfms);
-    */
-    //IO
+    // IO
     int sfms_count = sfms.size();
     SuFStream fin(sfms[0].pars.find("filename")->second.c_str());
     fin.open("r");
@@ -134,24 +96,24 @@ int main(int argc, char **argv){
     msg_int("ntr",ntr); 
      
     //malloc
-    float *d=(float*)calloc(ns,sizeof(float));
-    assert(d!=NULL);
-    SuHead hd;
+    float *data=(float*)calloc(ns,sizeof(float));
+    assert(data!=NULL);
+    SuHead head;
     
     // SFM: dlopen  
     msg("=============================================");
     msg("================= loading SFM (uninclude IO) ");
     msg("=============================================");
-    vector<pf_t> f;
-    pf_t ft;
+    vector<pf_t> pf;
+    pf_t pf1;
     if (sfms_count >2){
         for (int i=1; i<sfms_count-1; ++i){
-            bool ok = sfm_load(&ft,sfms[i].name.c_str()); 
-            if ( !ok) return 0; 
-            f.push_back(ft);
+            bool ok = sfm_load(&pf1,sfms[i].name.c_str()); 
+            if ( !ok) return 1; 
+            pf.push_back(pf1);
         }
     }
-    msg_int("sfm_load : Count",f.size());
+    msg_int("sfm_load : Count",pf.size());
 
     
     msg("=============================================");
@@ -160,19 +122,19 @@ int main(int argc, char **argv){
     //run 
     for (int i=0; i<ntr;++i){
         msg_int("trace",i+1);
-        fin.read(d,&hd);
-        for (int j=0; j<f.size(); ++j){
-            f[j](&hd,d,ns,sfms[j+1].pars);
+        fin.read(data,&head);
+        for (int j=0; j<pf.size(); ++j){
+            pf[j](&head,data,ns,sfms[j+1].pars);
         }
         
-        fout.write(d,hd,ns);
+        fout.write(data,head,ns);
     }
     msg("=============================================");
     msg("====================== information of result ");
     msg("=============================================");
     msg_int("trace : totalCount",ntr);
     // free
-    free(d);
+    free(data);
     
    fin.close();
    fout.close();
