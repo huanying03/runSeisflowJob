@@ -6,6 +6,6 @@
 #include <string>
 using namespace std;
 extern "C"{
-void addnoise(SuHead hd,float *data,int ns,map<string,string> pars);
+void addnoise(SuHead *hd,float *data,int ns,map<string,string> pars);
 }
 #endif

@@ -4,7 +4,7 @@
 #include <string>
 using namespace std;
 
-void addnoise(SuHead hd,float *data,int ns,map<string,string> pars){
+void addnoise(SuHead *hd,float *data,int ns,map<string,string> pars){
     std::string::size_type sz;
     
     float sigma = std::stof( pars.find("sigma")->second, &sz);  
