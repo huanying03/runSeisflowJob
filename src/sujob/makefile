@@ -7,7 +7,7 @@ INC_DIR=../../include
 LIB_DIR=../../lib
 
 all:
-	g++ ${SOURCE} -o ${OBJ} -I${INC_DIR} -L${LIB_DIR} -lmsg -lsufile
+	g++ ${SOURCE} -o ${OBJ} -I${INC_DIR} -L${LIB_DIR} -lmsg -lsufile -ljob
 
 BIN=../../bin
 
