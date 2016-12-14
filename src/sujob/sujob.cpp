@@ -14,7 +14,7 @@
 using namespace tinyxml2;
 using namespace std;
 
-typedef void(*pf_t)(SuHead *,float*,int,map<string,string>);
+typedef void(*pf_t)(SuHead *,float*,int,map<string,string>*);
 
 bool sfm_load(pf_t *pf,const char *name){
     void *handle=NULL;
@@ -64,6 +64,8 @@ void init_by_xml(vector< SFM >*sfms, const char *xml_file_name){
 		    
             t.pars.insert(pair<string,string>(node2->ToElement()->Attribute("name"),node2->ToElement()->GetText()));
 		}
+		t.pars.insert(pair<string,string>("input","0"));
+		t.pars.insert(pair<string,string>("output","0"));
         sfms->push_back(t);
 	}
 	
@@ -124,7 +126,7 @@ int main(int argc, char **argv){
         msg_int("trace",i+1);
         fin.read(data,&head);
         for (int j=0; j<pf.size(); ++j){
-            pf[j](&head,data,ns,sfms[j+1].pars);
+            pf[j](&head,data,ns,&(sfms[j+1].pars));
         }
         
         fout.write(data,head,ns);
