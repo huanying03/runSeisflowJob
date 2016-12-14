@@ -8,7 +8,7 @@ using namespace std;
 void job_load(vector< SFM > *sfms){
     SFM t;
     t.name ="suinput";
-    t.pars.insert(pair<string,string>("filename","../../data/tmp.su")); 
+    t.pars.insert(pair<string,string>("filename","../../data/in.su")); 
     sfms->push_back(t);
     /*
     t.pars.clear();
