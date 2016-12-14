@@ -1,0 +1,18 @@
+ 
+    <MOUDLE name="suin" >
+        <PARAMETER name="channel">0</PARAMETER>
+        <PARAMETER name="filename">../../data/in.su</PARAMETER>
+    </MOUDLE>
+    <MOUDLE name="addnoise" >
+        <PARAMETER name="channel">0</PARAMETER>
+        <PARAMETER name="sigma">1.0</PARAMETER>
+    </MOUDLE> 
+    <MOUDLE name="addnoise" >
+        <PARAMETER name="channel">0</PARAMETER>
+        <PARAMETER name="sigma">2.0</PARAMETER>
+    </MOUDLE> 
+    <MOUDLE name="suout" >
+        <PARAMETER name="channel">0</PARAMETER>
+        <PARAMETER name="filename">../../data/out-addnoise-1-2.su</PARAMETER>
+    </MOUDLE> 
+ 

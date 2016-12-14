@@ -7,7 +7,7 @@ INC_DIR=../../include
 LIB_DIR=../../lib
 
 all:
-	g++  ${SOURCE} -o ${LIB} -g -shared -fPIC
+	g++  ${SOURCE} -o ${LIB} -g -shared -fPIC -I${INC_DIR}  
 
 install:
 	cp ${HEAD} ${INC_DIR}

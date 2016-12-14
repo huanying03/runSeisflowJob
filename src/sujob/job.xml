@@ -1,0 +1,10 @@
+ 
+    <MOUDLE name="suin" >
+        <PARAMETER name="channel">0</PARAMETER>
+        <PARAMETER name="filename">../../data/in.su</PARAMETER>
+    </MOUDLE>
+    <MOUDLE name="suout" >
+        <PARAMETER name="channel">0</PARAMETER>
+        <PARAMETER name="filename">../../data/out-no-noise.su</PARAMETER>
+    </MOUDLE> 
+ 

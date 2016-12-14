@@ -18,7 +18,8 @@ typedef struct SFM{
 //  now: set sfms
 
 extern "C"{
-void job_load(vector< SFM > *sfms);
+void job_set(vector< SFM > * );
+//void job_load_xml(vector< SFM >*, string xml_file_name);
 
 void job_view(vector<SFM> sfms);
 }
