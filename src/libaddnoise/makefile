@@ -1,13 +1,13 @@
-HEAD=job.h
-SOURCE=job.cpp
+HEAD=addnoise.h
+SOURCE=addnoise.cpp
 
-LIB=libjob.so
+LIB=libaddnoise.so
 
 INC_DIR=../../include
 LIB_DIR=../../lib
 
 all:
-	g++  ${SOURCE} -o ${LIB} -g -shared -fPIC
+	g++  ${SOURCE} -o ${LIB} -I${INC_DIR} -std=c++11 -g -shared -fPIC
 
 install:
 	cp ${HEAD} ${INC_DIR}

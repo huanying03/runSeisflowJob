@@ -11,15 +11,20 @@ void job_load(vector< SFM > *sfms){
     t.pars.insert(pair<string,string>("filename","../../data/tmp.su")); 
     sfms->push_back(t);
     /*
-    t.name ="sunorm";
     t.pars.clear();
+    t.name ="sunorm";
     t.pars.insert(pair<string,string>("factor","1.0"));
     t.pars.insert(pair<string,string>("direction","0"));
+    sfms->push_back(t);
+    
+    t.pars.clear();
+    t.name = "addnoise";
+    t.pars.insert(pair<string,string>("sigma","1.0"));
     sfms->push_back(t);
     */
     t.pars.clear();
     t.name ="suoutput";
-    t.pars.insert(pair<string,string>("filename","../../data/out.su")); 
+    t.pars.insert(pair<string,string>("filename","../../data/out-no-noise.su")); 
     sfms->push_back(t);
 }
 

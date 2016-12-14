@@ -16,8 +16,10 @@ typedef struct SFM{
 /* load define of SFM in job */
 //  will: job.xml ->  vector< SFM >  sfms
 //  now: set sfms
+
+extern "C"{
 void job_load(vector< SFM > *sfms);
 
 void job_view(vector<SFM> sfms);
-
+}
 #endif
